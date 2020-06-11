@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyc.wenjuan.dao.FuncQuestionnaireMapper">
+
+  <resultMap id="BaseResultMap" type="com.gyc.wenjuan.model.FuncQuestionnaire">
+	<id column="id" jdbcType="BIGINT" property="id" />
+	<result column="title" jdbcType="VARCHAR" property="title" />
+	<result column="user_id" jdbcType="BIGINT" property="userId" />
+	<result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  
+  <insert id="add" parameterType="com.gyc.wenjuan.model.FuncQuestionnaire">
+    insert into func_questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="delete" parameterType="java.lang.Long">
+    delete from func_questionnaire
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <update id="update" parameterType="com.gyc.wenjuan.model.FuncQuestionnaire">
+    update func_questionnaire
+    <set>
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select * from func_questionnaire
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="findPage" resultMap="BaseResultMap">
+    select * from func_questionnaire
+  </select>
+  
+</mapper>

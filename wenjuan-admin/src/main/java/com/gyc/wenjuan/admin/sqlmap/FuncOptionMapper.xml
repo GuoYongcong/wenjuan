@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyc.wenjuan.dao.FuncOptionMapper">
+
+  <resultMap id="BaseResultMap" type="com.gyc.wenjuan.model.FuncOption">
+	<result column="question_id" jdbcType="BIGINT" property="questionId" />
+	<result column="no" jdbcType="TINYINT" property="no" />
+	<result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  
+  <insert id="add" parameterType="com.gyc.wenjuan.model.FuncOption">
+    insert into func_option
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="questionId != null">
+        question_id,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="questionId != null">
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="delete" parameterType="java.lang.
