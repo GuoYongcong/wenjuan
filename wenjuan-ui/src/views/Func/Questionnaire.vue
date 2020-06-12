@@ -20,20 +20,51 @@
     @findPage="findPage" @handleEdit="handleEdit" @handleDelete="handleDelete">
   </kt-table>
   <!--新增编辑界面-->
-  <el-dialog :title="operation?'新增':'编辑'" width="60%" :visible.sync="editDialogVisible" :close-on-click-modal="false">
-    <el-form :model="dataForm" label-width="80px" :rules="dataFormRules" ref="dataForm" :size="size">
+  <el-dialog :title="operation?'新增':'编辑'" width="60%" :visible.sync="editDialogVisible" :close-on-click-modal="false" :before-close="onCancel">
+    <el-form :model="dataForm" label-width="100px" :rules="dataFormRules" ref="dataForm" :size="size" >
       <el-form-item label="问卷标题" prop="title">
-        <el-input v-model="dataForm.title" auto-complete="off"></el-input>
+        <el-input v-model="dataForm.title" auto-complete="off" type="textarea" maxlength="50" show-word-limit autosize></el-input>
       </el-form-item>
-      <el-form-item label="用户编号" prop="userId">
-        <el-input v-model="dataForm.userId" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="问卷状态：0表示未发布；1表示已发布" prop="state">
-        <el-input v-model="dataForm.state" auto-complete="off"></el-input>
-      </el-form-item>
+
+      <div v-for="(que, queIndex) in dataForm.questions" :key="queIndex">
+        <el-card shadow="hover">
+          <el-form-item :label="'题目' + (queIndex+1)" prop="questionTitle">
+            <el-col :span="20">
+              <el-input v-model="dataForm.questions[queIndex].title" auto-complete="off" type="textarea" maxlength="100" show-word-limit autosize></el-input>
+            </el-col>
+            <el-col :span="2">
+              <el-button type="danger" icon="el-icon-delete" @click="deleteQuestion(queIndex)"></el-button>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="类型">
+            <el-col :span="5">
+              <el-radio-group v-model="que.type">
+                <el-radio-button label="0">单选</el-radio-button>
+                <el-radio-button label="1">多选</el-radio-button>
+              </el-radio-group>
+            </el-col>
+          </el-form-item>
+          <div v-for="(opt, optIndex) in que.options" :key="optIndex" :lable="选项">
+            <el-row :gutter="24">
+              <el-col :span="18" :offset="2">
+                <el-form-item :label="'选项'+(optIndex+1)" class="option">
+                  <el-input v-model="opt.content" auto-complete="off" type="textarea" maxlength="50" show-word-limit autosize></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="2">
+                <el-button type="primary" icon="el-icon-plus" @click="addOption(queIndex)" circle plain></el-button>
+              </el-col>
+              <el-col :span="1">
+                <el-button type="danger" icon="el-icon-minus" @click="deleteOption(queIndex, optIndex)" circle plain></el-button>
+              </el-col>
+            </el-row>
+          </div>
+        </el-card>
+      </div>
+      <el-button type="primary" icon="el-icon-circle-plus-outline" @click="addQustion" plain>添加题目</el-button>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button :size="size" @click.native="editDialogVisible = false">{{$t('action.cancel')}}</el-button>
+      <el-button :size="size" @click.native="onCancel">{{$t('action.cancel')}}</el-button>
       <el-button :size="size" type="primary" @click.native="submitForm" :loading="editLoading">{{$t('action.submit')}}</el-button>
     </div>
   </el-dialog>
@@ -75,16 +106,10 @@ export default {
       // 新增编辑界面数据
       dataForm: {
         id: null,
-        title: null,
+        title: '',
         userId: null,
         state: 0,
-        question: [{
-          id: null,
-          questionnaireId: null,
-          type: null,
-          title: null,
-          no: null,
-        }]
+        questions: []
       }
     }
   },
@@ -109,9 +134,10 @@ export default {
       this.operation = true
       this.dataForm = {
         id: null,
-        title: null,
+        title: '',
         userId: null,
         state: 0,
+        questions: []
       }
     },
     // 显示编辑界面
@@ -119,6 +145,53 @@ export default {
       this.editDialogVisible = true
       this.operation = false
       this.dataForm = Object.assign({}, params.row)
+    },
+    //添加题目
+    addQustion: function(){
+      let length = this.dataForm.questions.length
+      let question = {
+        id: null,
+        questionnaireId: null,
+        type: 0,
+        title: '',
+        no: 1,
+        options: []
+      }
+      if(length === 0)
+        question.no = 1
+      else
+        question.no = this.dataForm.questions[length-1].no + 1
+      this.dataForm.questions.push(question)
+      //题目默认添加两个选项
+      for(let i = 0; i < 2; i++)
+        this.addOption(length)
+    },
+    //删除题目
+    deleteQuestion: function(index){
+      this.dataForm.questions.splice(index, 1)
+    },
+    //添加选项
+    addOption: function(index){
+      let length = this.dataForm.questions[index].options.length
+      let option = {
+        id: null,
+        questionId: null,
+        no: 1,
+        content: ''
+      }
+      if(length === 0)
+        option.no = 1
+      else
+        option.no = this.dataForm.questions[index].options[length-1].no + 1
+      this.dataForm.questions[index].options.push(option)
+    },
+    //删除选项
+    deleteOption: function(queIndex, optIndex){
+      if(this.dataForm.questions[queIndex].options.length === 2){
+        this.$message({ message: '删除失败，一个题目至少保留两个选项！', type: 'error' })
+        return
+      }
+      this.dataForm.questions[queIndex].options.splice(optIndex, 1)
     },
     // 编辑
     submitForm: function () {
@@ -143,6 +216,11 @@ export default {
         }
       })
     },
+    onCancel: function(){
+      this.$confirm('确认放弃保存问卷吗？', '提示', {}).then(() => {
+        this.editDialogVisible = false
+      })
+    },
     // 时间格式化
         dateFormat: function (row, column, cellValue, index){
             return format(row[column.property])
@@ -153,6 +231,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.el-card{
+  margin-bottom: 20px;
+}
 </style>
