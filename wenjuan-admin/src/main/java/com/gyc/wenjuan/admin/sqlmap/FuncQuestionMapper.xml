@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gyc.wenjuan.dao.FuncQuestionMapper">
+<mapper namespace="com.gyc.wenjuan.admin.dao.FuncQuestionMapper">
 
-  <resultMap id="BaseResultMap" type="com.gyc.wenjuan.model.FuncQuestion">
+  <resultMap id="BaseResultMap" type="com.gyc.wenjuan.admin.model.FuncQuestion">
 	<id column="id" jdbcType="BIGINT" property="id" />
 	<result column="questionnaire_id" jdbcType="BIGINT" property="questionnaireId" />
 	<result column="type" jdbcType="TINYINT" property="type" />
@@ -10,7 +10,7 @@
 	<result column="no" jdbcType="SMALLINT" property="no" />
   </resultMap>
   
-  <insert id="add" parameterType="com.gyc.wenjuan.model.FuncQuestion">
+  <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.gyc.wenjuan.admin.model.FuncQuestion">
     insert into func_question
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -53,7 +53,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   
-  <update id="update" parameterType="com.gyc.wenjuan.model.FuncQuestion">
+  <update id="update" parameterType="com.gyc.wenjuan.admin.model.FuncQuestion">
     update func_question
     <set>
       <if test="id != null">
@@ -84,4 +84,10 @@
     select * from func_question
   </select>
   
+  <select id="findAllByQuestionnaireId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select * from func_question
+    where questionnaire_id like #{questionnaireId,jdbcType=BIGINT}
+    order by no asc
+  </select>
+
 </mapper>

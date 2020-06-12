@@ -1,25 +1,25 @@
-package com.gyc.wenjuan.service.impl;
+package com.gyc.wenjuan.admin.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.louis.kitty.core.page.MybatisPageHelper;
-import com.louis.kitty.core.page.PageRequest;
-import com.louis.kitty.core.page.PageResult;
+import com.gyc.wenjuan.core.page.MybatisPageHelper;
+import com.gyc.wenjuan.core.page.PageRequest;
+import com.gyc.wenjuan.core.page.PageResult;
+import com.gyc.wenjuan.core.page.ColumnFilter;
 
-import com.gyc.wenjuan.model.FuncQuestionnaire;
-import com.gyc.wenjuan.dao.FuncQuestionnaireMapper;
-import com.gyc.wenjuan.service.FuncQuestionnaireService;
+import com.gyc.wenjuan.admin.model.FuncQuestionnaire;
+import com.gyc.wenjuan.admin.dao.FuncQuestionnaireMapper;
+import com.gyc.wenjuan.admin.service.FuncQuestionnaireService;
 
 /**
  * ---------------------------
  * 问卷 (FuncQuestionnaireServiceImpl)         
  * ---------------------------
- * 作者：  kitty-generator
- * 时间：  2020-06-11 16:03:54
- * 说明：  我是由代码生成器生生成的
+ * 作者：  郭永聪
+ * 时间：  2020-06-11 
  * ---------------------------
  */
 @Service
@@ -56,7 +56,27 @@ public class FuncQuestionnaireServiceImpl implements FuncQuestionnaireService {
 
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
-		return MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper);
+		String userId = getColumnFilterValue(pageRequest, "userId");
+		if(userId != null) {
+			Long uid = Long.valueOf(userId);
+			return MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper, "findPageByUserId", uid);
+		}else{
+			return MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper);
+		}
+	}
+
+	/**
+	 * 获取过滤字段的值
+	 * @param filterName
+	 * @return
+	 */
+	public String getColumnFilterValue(PageRequest pageRequest, String filterName) {
+		String value = null;
+		ColumnFilter columnFilter = pageRequest.getColumnFilter(filterName);
+		if(columnFilter != null) {
+			value = columnFilter.getValue();
+		}
+		return value;
 	}
 	
 }

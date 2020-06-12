@@ -1,7 +1,9 @@
-package com.gyc.wenjuan.service;
+package com.gyc.wenjuan.admin.service;
 
-import com.gyc.wenjuan.model.FuncQuestion;
-import com.louis.kitty.core.service.CurdService;
+import java.util.List;
+
+import com.gyc.wenjuan.admin.model.FuncQuestion;
+import com.gyc.wenjuan.core.service.CurdService;
 
 /**
  * ---------------------------
@@ -14,4 +16,10 @@ import com.louis.kitty.core.service.CurdService;
  */
 public interface FuncQuestionService extends CurdService<FuncQuestion> {
 
+    /**
+    * 根据问卷编号查找所有题目
+    * @param questionnaireId
+    * @return
+    */
+    List<FuncQuestion> findAllByQuestionnaireId(Long questionnaireId);
 }

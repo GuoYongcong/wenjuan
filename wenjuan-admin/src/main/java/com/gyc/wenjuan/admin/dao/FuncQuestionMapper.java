@@ -1,8 +1,8 @@
-package com.gyc.wenjuan.dao;
+package com.gyc.wenjuan.admin.dao;
 
 import java.util.List;
 
-import com.gyc.wenjuan.model.FuncQuestion;
+import com.gyc.wenjuan.admin.model.FuncQuestion;
 
 /**
  * ---------------------------
@@ -50,4 +50,10 @@ public interface FuncQuestionMapper {
      */    
     List<FuncQuestion> findPage();
     
+    /**
+    * 根据问卷编号查询所有题目
+    * @param questionnaireId
+    * @return
+    */  
+    List<FuncQuestion> findAllByQuestionnaireId(Long questionnaireId);
 }

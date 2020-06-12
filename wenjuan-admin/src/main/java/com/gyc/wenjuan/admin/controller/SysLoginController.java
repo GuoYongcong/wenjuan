@@ -20,7 +20,7 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.gyc.wenjuan.admin.model.SysUser;
 import com.gyc.wenjuan.admin.security.JwtAuthenticatioToken;
-import com.gyc.wenjuan.admin.sevice.SysUserService;
+import com.gyc.wenjuan.admin.service.SysUserService;
 import com.gyc.wenjuan.admin.util.PasswordUtils;
 import com.gyc.wenjuan.admin.util.SecurityUtils;
 import com.gyc.wenjuan.admin.vo.LoginBean;
@@ -73,9 +73,9 @@ public class SysLoginController {
 		if(kaptcha == null){
 			return HttpResult.error("验证码已失效");
 		}
-//		if(!captcha.equals(kaptcha)){
-//			return HttpResult.error("验证码不正确");
-//		}
+		if(!captcha.equals(kaptcha)){
+			return HttpResult.error("验证码不正确");
+		}
 		
 		// 用户信息
 		SysUser user = sysUserService.findByName(username);

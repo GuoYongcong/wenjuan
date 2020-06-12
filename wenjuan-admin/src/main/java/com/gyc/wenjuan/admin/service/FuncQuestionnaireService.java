@@ -1,15 +1,14 @@
-package com.gyc.wenjuan.service;
+package com.gyc.wenjuan.admin.service;
 
-import com.gyc.wenjuan.model.FuncQuestionnaire;
-import com.louis.kitty.core.service.CurdService;
+import com.gyc.wenjuan.admin.model.FuncQuestionnaire;
+import com.gyc.wenjuan.core.service.CurdService;
 
 /**
  * ---------------------------
  * 问卷 (FuncQuestionnaireService)         
  * ---------------------------
- * 作者：  kitty-generator
- * 时间：  2020-06-11 16:03:54
- * 说明：  我是由代码生成器生生成的
+ * 作者：  郭永聪
+ * 时间：  2020-06-11
  * ---------------------------
  */
 public interface FuncQuestionnaireService extends CurdService<FuncQuestionnaire> {

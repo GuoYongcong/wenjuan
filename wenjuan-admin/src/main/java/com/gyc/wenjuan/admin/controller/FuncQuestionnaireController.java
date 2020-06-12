@@ -1,4 +1,4 @@
-package com.gyc.wenjuan.controller;
+package com.gyc.wenjuan.admin.controller;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.louis.kitty.core.http.HttpResult;
-import com.louis.kitty.core.page.PageRequest;
+import com.gyc.wenjuan.core.http.HttpResult;
+import com.gyc.wenjuan.core.page.PageRequest;
 
-import com.gyc.wenjuan.model.FuncQuestionnaire;
-import com.gyc.wenjuan.service.FuncQuestionnaireService;
+import com.gyc.wenjuan.admin.model.FuncQuestionnaire;
+import com.gyc.wenjuan.admin.service.FuncQuestionnaireService;
 
 /**
  * ---------------------------
@@ -26,7 +26,7 @@ import com.gyc.wenjuan.service.FuncQuestionnaireService;
  * ---------------------------
  */
 @RestController
-@RequestMapping("funcQuestionnaire")
+@RequestMapping("questionnaire")
 public class FuncQuestionnaireController {
 
 	@Autowired
@@ -39,7 +39,10 @@ public class FuncQuestionnaireController {
 	 */	
 	@PostMapping(value="/save")
 	public HttpResult save(@RequestBody FuncQuestionnaire record) {
-		return HttpResult.ok(funcQuestionnaireService.save(record));
+        HttpResult result = HttpResult.ok(funcQuestionnaireService.save(record));
+        //获取保存之后问卷的编号
+        result.setData(record.getId());
+		return result;
 	}
 
     /**
@@ -71,4 +74,5 @@ public class FuncQuestionnaireController {
 	public HttpResult findById(@RequestParam Long id) {
 		return HttpResult.ok(funcQuestionnaireService.findById(id));
 	}
+
 }

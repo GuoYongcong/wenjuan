@@ -1,4 +1,4 @@
-package com.gyc.wenjuan.model;
+package com.gyc.wenjuan.admin.model;
 
 /**
  * ---------------------------

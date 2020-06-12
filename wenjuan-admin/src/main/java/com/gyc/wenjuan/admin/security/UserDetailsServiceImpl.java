@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gyc.wenjuan.admin.model.SysUser;
-import com.gyc.wenjuan.admin.sevice.SysUserService;
+import com.gyc.wenjuan.admin.service.SysUserService;
 
 /**
  * 用户登录认证信息查询

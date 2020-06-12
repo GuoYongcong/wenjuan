@@ -1,4 +1,4 @@
-package com.gyc.wenjuan.controller;
+package com.gyc.wenjuan.admin.controller;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.louis.kitty.core.http.HttpResult;
-import com.louis.kitty.core.page.PageRequest;
+import com.gyc.wenjuan.core.http.HttpResult;
+import com.gyc.wenjuan.core.page.PageRequest;
 
-import com.gyc.wenjuan.model.FuncQuestion;
-import com.gyc.wenjuan.service.FuncQuestionService;
+import com.gyc.wenjuan.admin.model.FuncQuestion;
+import com.gyc.wenjuan.admin.service.FuncQuestionService;
 
 /**
  * ---------------------------
@@ -26,7 +26,7 @@ import com.gyc.wenjuan.service.FuncQuestionService;
  * ---------------------------
  */
 @RestController
-@RequestMapping("funcQuestion")
+@RequestMapping("question")
 public class FuncQuestionController {
 
 	@Autowired
@@ -71,4 +71,14 @@ public class FuncQuestionController {
 	public HttpResult findById(@RequestParam Long id) {
 		return HttpResult.ok(funcQuestionService.findById(id));
 	}
+
+    /**
+    * 根据问卷编号查询所有题目
+    * @param questionnaireId
+    * @return
+    */
+    @GetMapping(value="/findAllByQuestionnaireId")
+    public HttpResult findAllByQuestionnaireId(@RequestParam Long questionnaireId) {
+        return HttpResult.ok(funcQuestionService.findAllByQuestionnaireId(questionnaireId));
+    }
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gyc.wenjuan.dao.FuncQuestionnaireMapper">
+<mapper namespace="com.gyc.wenjuan.admin.dao.FuncQuestionnaireMapper">
 
-  <resultMap id="BaseResultMap" type="com.gyc.wenjuan.model.FuncQuestionnaire">
+  <resultMap id="BaseResultMap" type="com.gyc.wenjuan.admin.model.FuncQuestionnaire">
 	<id column="id" jdbcType="BIGINT" property="id" />
 	<result column="title" jdbcType="VARCHAR" property="title" />
 	<result column="user_id" jdbcType="BIGINT" property="userId" />
 	<result column="state" jdbcType="TINYINT" property="state" />
   </resultMap>
   
-  <insert id="add" parameterType="com.gyc.wenjuan.model.FuncQuestionnaire">
+  <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.gyc.wenjuan.admin.model.FuncQuestionnaire">
     insert into func_questionnaire
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -46,7 +46,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   
-  <update id="update" parameterType="com.gyc.wenjuan.model.FuncQuestionnaire">
+  <update id="update" parameterType="com.gyc.wenjuan.admin.model.FuncQuestionnaire">
     update func_questionnaire
     <set>
       <if test="id != null">
@@ -73,5 +73,10 @@
   <select id="findPage" resultMap="BaseResultMap">
     select * from func_questionnaire
   </select>
-  
+
+  <select id="findPageByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + _parameter.userId + '%'" />
+    select * from func_questionnaire
+    where user_id like #{pattern}
+  </select>
 </mapper>

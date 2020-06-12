@@ -8,7 +8,7 @@
     </span>
     <h2 class="title" style="padding-left:22px;" >系统登录</h2>
     <el-form-item prop="account">
-      <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="账号"></el-input>
+      <el-input type="text" v-model="loginForm.account" auto-complete="on" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码"></el-input>
@@ -51,8 +51,8 @@ export default {
     return {
       loading: false,
       loginForm: {
-        account: 'admin',
-        password: 'admin',
+        account: '',
+        password: '',
         captcha:'',
         src: ''
       },
@@ -63,10 +63,10 @@ export default {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ]
-        // ,
-        // captcha: [
-        //   { required: true, message: '请输入验证码', trigger: 'blur' }
-        // ]
+        ,
+        captcha: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
+        ]
       },
       checked: true
     }

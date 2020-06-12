@@ -15,7 +15,7 @@ import com.gyc.wenjuan.admin.constants.SysConstants;
 import com.gyc.wenjuan.admin.dao.SysRoleMapper;
 import com.gyc.wenjuan.admin.model.SysRole;
 import com.gyc.wenjuan.admin.model.SysRoleMenu;
-import com.gyc.wenjuan.admin.sevice.SysRoleService;
+import com.gyc.wenjuan.admin.service.SysRoleService;
 import com.gyc.wenjuan.core.http.HttpResult;
 import com.gyc.wenjuan.core.page.PageRequest;
 

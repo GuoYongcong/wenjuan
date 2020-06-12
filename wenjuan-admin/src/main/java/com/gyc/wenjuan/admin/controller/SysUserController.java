@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gyc.wenjuan.admin.constants.SysConstants;
 import com.gyc.wenjuan.admin.model.SysUser;
-import com.gyc.wenjuan.admin.sevice.SysUserService;
+import com.gyc.wenjuan.admin.service.SysUserService;
 import com.gyc.wenjuan.admin.util.PasswordUtils;
 import com.gyc.wenjuan.core.http.HttpResult;
 import com.gyc.wenjuan.core.page.PageRequest;

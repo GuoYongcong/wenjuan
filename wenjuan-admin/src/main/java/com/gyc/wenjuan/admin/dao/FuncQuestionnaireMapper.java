@@ -1,8 +1,11 @@
-package com.gyc.wenjuan.dao;
+package com.gyc.wenjuan.admin.dao;
 
 import java.util.List;
 
-import com.gyc.wenjuan.model.FuncQuestionnaire;
+import com.gyc.wenjuan.admin.model.FuncQuestionnaire;
+
+import org.apache.ibatis.annotations.Param;
+
 
 /**
  * ---------------------------
@@ -49,5 +52,12 @@ public interface FuncQuestionnaireMapper {
      * @return
      */    
     List<FuncQuestionnaire> findPage();
+
+     /**
+     * 根据用户编号分页查询
+     * @param userId
+     * @return
+     */    
+    List<FuncQuestionnaire> findPageByUserId(@Param(value="userId") Long userId);
     
 }

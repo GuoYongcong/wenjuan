@@ -1,17 +1,17 @@
-package com.gyc.wenjuan.service.impl;
+package com.gyc.wenjuan.admin.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.louis.kitty.core.page.MybatisPageHelper;
-import com.louis.kitty.core.page.PageRequest;
-import com.louis.kitty.core.page.PageResult;
+import com.gyc.wenjuan.core.page.MybatisPageHelper;
+import com.gyc.wenjuan.core.page.PageRequest;
+import com.gyc.wenjuan.core.page.PageResult;
 
-import com.gyc.wenjuan.model.FuncQuestion;
-import com.gyc.wenjuan.dao.FuncQuestionMapper;
-import com.gyc.wenjuan.service.FuncQuestionService;
+import com.gyc.wenjuan.admin.model.FuncQuestion;
+import com.gyc.wenjuan.admin.dao.FuncQuestionMapper;
+import com.gyc.wenjuan.admin.service.FuncQuestionService;
 
 /**
  * ---------------------------
@@ -57,6 +57,11 @@ public class FuncQuestionServiceImpl implements FuncQuestionService {
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
 		return MybatisPageHelper.findPage(pageRequest, funcQuestionMapper);
+	}
+
+	@Override
+	public List<FuncQuestion> findAllByQuestionnaireId(Long questionnaireId) {
+		return funcQuestionMapper.findAllByQuestionnaireId(questionnaireId);
 	}
 	
 }

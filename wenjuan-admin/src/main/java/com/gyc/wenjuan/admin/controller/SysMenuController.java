@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gyc.wenjuan.admin.model.SysMenu;
-import com.gyc.wenjuan.admin.sevice.SysMenuService;
+import com.gyc.wenjuan.admin.service.SysMenuService;
 import com.gyc.wenjuan.core.http.HttpResult;
 
 /**
