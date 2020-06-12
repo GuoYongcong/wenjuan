@@ -21,16 +21,16 @@
   </kt-table>
   <!--新增编辑界面-->
   <el-dialog :title="operation?'新增':'编辑'" width="60%" :visible.sync="editDialogVisible" :close-on-click-modal="false" :before-close="onCancel">
-    <el-form :model="dataForm" label-width="100px" :rules="dataFormRules" ref="dataForm" :size="size" >
-      <el-form-item label="问卷标题" prop="title">
+    <el-form :model="dataForm" label-width="100px" ref="dataForm" :size="size" >
+      <el-form-item label="问卷标题" prop="title" :rules="[{ required: true, message: '请输入问卷标题', trigger: 'blur' }]">
         <el-input v-model="dataForm.title" auto-complete="off" type="textarea" maxlength="50" show-word-limit autosize></el-input>
       </el-form-item>
 
-      <div v-for="(que, queIndex) in dataForm.questions" :key="queIndex">
+      <div v-for="(que, queIndex) in dataForm.questions" :key="'question'+queIndex">
         <el-card shadow="hover">
-          <el-form-item :label="'题目' + (queIndex+1)" prop="questionTitle">
+          <el-form-item :label="'题目' + (queIndex+1)" :prop="'questions.'+queIndex+'.title'" :rules="[{ required: true, message: '请输入题目标题', trigger: 'blur' }]">
             <el-col :span="20">
-              <el-input v-model="dataForm.questions[queIndex].title" auto-complete="off" type="textarea" maxlength="100" show-word-limit autosize></el-input>
+              <el-input v-model="que.title" auto-complete="off" type="textarea" maxlength="100" show-word-limit autosize></el-input>
             </el-col>
             <el-col :span="2">
               <el-button type="danger" icon="el-icon-delete" @click="deleteQuestion(queIndex)"></el-button>
@@ -44,10 +44,10 @@
               </el-radio-group>
             </el-col>
           </el-form-item>
-          <div v-for="(opt, optIndex) in que.options" :key="optIndex" :lable="选项">
+          <div v-for="(opt, optIndex) in que.options" :key="'option'+optIndex">
             <el-row :gutter="24">
               <el-col :span="18" :offset="2">
-                <el-form-item :label="'选项'+(optIndex+1)" class="option">
+                <el-form-item :label="'选项'+(optIndex+1)" :prop="'questions.'+queIndex+'.options.'+optIndex+'.content'" :rules="[{ required: true, message: '请输入选项内容', trigger: 'blur' }]">
                   <el-input v-model="opt.content" auto-complete="off" type="textarea" maxlength="50" show-word-limit autosize></el-input>
                 </el-form-item>
               </el-col>
@@ -98,13 +98,15 @@ export default {
       operation: false, // true:新增, false:编辑
       editDialogVisible: false, // 新增编辑界面是否显示
       editLoading: false,
-      dataFormRules: {
-        label: [
-          { required: true, message: '请输入名称', trigger: 'blur' }
-        ]
-      },
       // 新增编辑界面数据
       dataForm: {
+        id: null,
+        title: '',
+        userId: null,
+        state: 0,
+        questions: []
+      },
+      question: {
         id: null,
         title: '',
         userId: null,
