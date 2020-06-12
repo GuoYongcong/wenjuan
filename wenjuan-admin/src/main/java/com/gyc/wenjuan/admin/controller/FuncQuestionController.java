@@ -39,7 +39,10 @@ public class FuncQuestionController {
 	 */	
 	@PostMapping(value="/save")
 	public HttpResult save(@RequestBody FuncQuestion record) {
-		return HttpResult.ok(funcQuestionService.save(record));
+        HttpResult result = HttpResult.ok(funcQuestionService.save(record));
+        //获取保存之后题目的编号
+        result.setData(record.getId());
+        return result;
 	}
 
     /**
