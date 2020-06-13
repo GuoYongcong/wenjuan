@@ -20,7 +20,7 @@ import com.gyc.wenjuan.common.utils.StringUtils;
 /**
  * DAO切面，插入创建人，创建时间，修改人，修改时间
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @Aspect
 @Component

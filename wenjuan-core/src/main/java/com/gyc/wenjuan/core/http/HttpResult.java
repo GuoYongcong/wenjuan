@@ -3,7 +3,6 @@ package com.gyc.wenjuan.core.http;
 /**
  * HTTP结果封装
  * @author gyc
- * @date Oct 29, 2018
  */
 public class HttpResult {
 

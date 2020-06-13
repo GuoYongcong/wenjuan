@@ -2,7 +2,7 @@
 * @Author: 郭永聪
 * @Date:   2020-06-11
 * @Last Modified by:   郭永聪
-* @Last Modified time: 2020-06-11
+* @Last Modified time: 2020-06-13
 */
 import axios from '../axios'
 
@@ -32,6 +32,15 @@ export const findPage = (data) => {
         url: '/questionnaire/findPage',
         method: 'post',
         data
+    })
+}
+
+// 根据问卷编号查询
+export const findById = (params) => {
+    return axios({
+        url: '/questionnaire/findById',
+        method: 'get',
+        params
     })
 }
 

@@ -6,7 +6,6 @@ import java.io.IOException;
 /**
  * IO相关工具类
  * @author gyc
- * @date Oct 29, 2018
  */
 public class IOUtils {
 

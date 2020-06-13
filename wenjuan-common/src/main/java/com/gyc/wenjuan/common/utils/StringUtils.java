@@ -3,7 +3,6 @@ package com.gyc.wenjuan.common.utils;
 /**
  * 字符串工具类
  * @author gyc
- * @date Sep 1, 2018
  */
 public class StringUtils {
 

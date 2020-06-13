@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="width:99%;margin-top:-25px;">
+  <div class="container">
   <!--工具栏-->
   <div class="toolbar" style="float:left;padding-top:10px;padding-left:15px;">
     <el-form :inline="true" :model="filters" :size="size">
@@ -23,7 +23,17 @@
   <el-dialog :title="operation?'新增':'编辑'" width="60%" :visible.sync="editDialogVisible" :close-on-click-modal="false" :before-close="onCancel">
     <el-form :model="dataForm" label-width="100px" ref="dataForm" :size="size" >
       <el-form-item label="问卷标题" prop="title" :rules="[{ required: true, message: '请输入问卷标题', trigger: 'blur' }]">
-        <el-input v-model="dataForm.title" auto-complete="off" type="textarea" maxlength="50" show-word-limit autosize></el-input>
+        <el-row>
+          <el-col :span="19">
+            <el-input v-model="dataForm.title" auto-complete="off" type="textarea" maxlength="50" show-word-limit autosize></el-input>
+          </el-col>
+          <el-col :span="5">
+            <el-radio-group v-model="dataForm.state">
+              <el-radio-button label="0">不发布</el-radio-button>
+              <el-radio-button label="1">发布</el-radio-button>
+            </el-radio-group>
+          </el-col>
+        </el-row>
       </el-form-item>
 
       <div v-for="(que, queIndex) in dataForm.questions" :key="'question'+queIndex">
@@ -90,7 +100,7 @@ export default {
         {prop:"id", label:"编号", minWidth:100},
         {prop:"title", label:"问卷标题", minWidth:100},
         {prop:"userId", label:"用户编号", minWidth:100},
-        {prop:"state", label:"问卷状态", minWidth:100},
+        {prop:"state", label:"问卷状态(0:未发布；1:已发布)", minWidth:100},
       ],
       pageRequest: { pageNum: 1, pageSize: 8 },
       pageResult: {},
@@ -156,9 +166,16 @@ export default {
     },
     // 显示编辑界面
     handleEdit: function (params) {
-      this.editDialogVisible = true
-      this.operation = false
-      this.dataForm = Object.assign({}, params.row)
+      this.$api.questionnaire.findById({id:params.row.id}).then((res) => {
+        if(res.code === 200)
+        {
+          this.editDialogVisible = true
+          this.operation = false
+          this.dataForm = res.data
+        }
+        else
+            this.$message({message: '获取问卷信息失败, ' + res.msg, type: 'error'})
+      })
     },
     //添加题目
     addQustion: function(){

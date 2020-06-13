@@ -21,7 +21,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 /**
  * Druid数据源配置
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @Configuration
 @EnableConfigurationProperties({DruidDataSourceProperties.class})

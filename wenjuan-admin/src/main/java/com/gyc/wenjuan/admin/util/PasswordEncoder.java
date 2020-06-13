@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 /**
  * 密码加密
  * @author gyc
- * @date Nov 20, 2018
+ * 
  */
 public class PasswordEncoder {
 

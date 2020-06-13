@@ -18,7 +18,7 @@ import com.gyc.wenjuan.core.http.HttpResult;
 /**
  * 菜单控制器
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @RestController
 @RequestMapping("menu")

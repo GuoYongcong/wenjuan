@@ -10,7 +10,7 @@ import com.gyc.wenjuan.core.service.CurdService;
 /**
  * 用户管理
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 public interface SysUserService extends CurdService<SysUser> {
 

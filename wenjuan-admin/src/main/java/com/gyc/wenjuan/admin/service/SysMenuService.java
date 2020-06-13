@@ -8,7 +8,7 @@ import com.gyc.wenjuan.core.service.CurdService;
 /**
  * 菜单管理
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 public interface SysMenuService extends CurdService<SysMenu> {
 

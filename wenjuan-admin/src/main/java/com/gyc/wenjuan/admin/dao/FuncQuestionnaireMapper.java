@@ -44,7 +44,7 @@ public interface FuncQuestionnaireMapper {
      * @param id
      * @return
      */    
-    FuncQuestionnaire findById(Long id);
+    FuncQuestionnaire findById(@Param(value="id") Long id);
 
     /**
      * 基础分页查询

@@ -11,7 +11,7 @@ import com.google.code.kaptcha.util.Config;
 /**
  * 验证码配置
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @Configuration
 public class KaptchaConfig {

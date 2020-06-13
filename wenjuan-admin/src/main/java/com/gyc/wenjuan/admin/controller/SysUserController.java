@@ -21,7 +21,7 @@ import com.gyc.wenjuan.core.page.PageRequest;
 /**
  * 用户控制器
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @RestController
 @RequestMapping("user")

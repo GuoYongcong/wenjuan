@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 分页请求
  * @author gyc
- * @date Aug 19, 2018
+ * 
  */
 public class PageRequest {
 	/**

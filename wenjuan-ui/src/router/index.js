@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-  } else {
+  }else {
     if (!token) {
       // 如果访问非登录界面，且户会话信息不存在，代表未登录，则跳转到登录界面
       next({ path: '/login' })
@@ -53,6 +53,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   }
+
 })
 
 /**

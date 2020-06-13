@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 启动器
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @SpringBootApplication(scanBasePackages={"com.gyc.wenjuan"})
 public class WenjuanAdminApplication {

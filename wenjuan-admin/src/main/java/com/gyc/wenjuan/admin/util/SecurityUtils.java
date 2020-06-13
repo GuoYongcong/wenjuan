@@ -13,7 +13,7 @@ import com.gyc.wenjuan.admin.security.JwtAuthenticatioToken;
 /**
  * Security相关操作
  * @author gyc
- * @date Nov 20, 2018
+ * 
  */
 public class SecurityUtils {
 

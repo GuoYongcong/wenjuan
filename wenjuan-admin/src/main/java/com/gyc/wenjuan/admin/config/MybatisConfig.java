@@ -13,7 +13,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 /**
  * Mybatis配置
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @Configuration
 @MapperScan("com.gyc.wenjuan.*.dao")	// 扫描DAO

@@ -16,7 +16,7 @@ import com.gyc.wenjuan.admin.service.SysUserService;
 /**
  * 用户登录认证信息查询
  * @author gyc
- * @date Nov 20, 2018
+ * 
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

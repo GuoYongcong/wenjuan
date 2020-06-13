@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.gyc.wenjuan.admin.model.FuncQuestion;
 
+import org.apache.ibatis.annotations.Param;
+
+
 /**
  * ---------------------------
  * 题目 (FuncQuestionMapper)         
@@ -41,7 +44,7 @@ public interface FuncQuestionMapper {
      * @param id
      * @return
      */    
-    FuncQuestion findById(Long id);
+    FuncQuestion findById(@Param(value="id") Long id);
 
     /**
      * 基础分页查询
@@ -55,5 +58,5 @@ public interface FuncQuestionMapper {
     * @param questionnaireId
     * @return
     */  
-    List<FuncQuestion> findAllByQuestionnaireId(Long questionnaireId);
+    List<FuncQuestion> findAllByQuestionnaireId(@Param(value="questionnaireId")Long questionnaireId);
 }

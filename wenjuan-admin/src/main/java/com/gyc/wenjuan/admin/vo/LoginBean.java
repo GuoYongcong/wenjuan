@@ -3,7 +3,7 @@ package com.gyc.wenjuan.admin.vo;
 /**
  * 登录接口封装对象
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 public class LoginBean {
 

@@ -6,7 +6,6 @@ import java.util.Date;
 /**
  * 日期时间相关工具
  * @author gyc
- * @date Sep 23, 2018
  */
 public class DateTimeUtils {
 

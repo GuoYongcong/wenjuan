@@ -5,7 +5,6 @@ import java.util.UUID;
 /**
  * 密码工具类
  * @author gyc
- * @date Sep 1, 2018
  */
 public class PasswordUtils {
 

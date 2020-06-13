@@ -3,7 +3,6 @@ package com.gyc.wenjuan.core.exception;
 /**
  * 自定义异常
  * @author gyc
- * @date Aug 21, 2018
  */
 public class WenjuanException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

@@ -14,7 +14,7 @@ import com.gyc.wenjuan.core.http.HttpResult;
 /**
  * HTTP工具类
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 public class HttpUtils {
 

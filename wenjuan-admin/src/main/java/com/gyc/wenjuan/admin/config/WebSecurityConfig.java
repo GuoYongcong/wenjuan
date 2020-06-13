@@ -20,7 +20,7 @@ import com.gyc.wenjuan.admin.security.JwtAuthenticationProvider;
 /**
  * Spring Security Config
  * @author gyc
- * @date Nov 20, 2018
+ * 
  */
 @Configuration
 @EnableWebSecurity
@@ -59,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/captcha.jpg**").permitAll()
             // 服务监控
             .antMatchers("/actuator/**").permitAll()
+            //查看和填写问卷
+            .antMatchers("/questionnaire/**").permitAll()
             // 其他所有请求需要身份认证
             .anyRequest().authenticated();
         // 退出登录处理器

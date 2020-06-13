@@ -16,7 +16,7 @@ import com.gyc.wenjuan.admin.util.SecurityUtils;
 /**
  * 登录认证过滤器
  * @author gyc
- * @date Nov 20, 2018
+ * 
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 

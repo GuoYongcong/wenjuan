@@ -9,7 +9,7 @@ import com.gyc.wenjuan.common.utils.ReflectionUtils;
 /**
  * MyBatis 分页查询助手
  * @author gyc
- * @date Aug 19, 2018
+ * 
  */
 public class MybatisPageHelper {
 

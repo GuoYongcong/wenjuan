@@ -30,7 +30,7 @@ import com.gyc.wenjuan.core.http.HttpResult;
 /**
  * 登录控制器
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */
 @RestController
 public class SysLoginController {

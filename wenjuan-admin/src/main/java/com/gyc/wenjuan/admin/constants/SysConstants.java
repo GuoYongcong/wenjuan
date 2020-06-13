@@ -3,7 +3,7 @@ package com.gyc.wenjuan.admin.constants;
 /**
  * 常量管理
  * @author gyc
- * @date Oct 29, 2018
+ * 
  */ 
 public interface SysConstants {
 

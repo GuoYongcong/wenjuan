@@ -3,7 +3,7 @@ package com.gyc.wenjuan.core.page;
 /**
  * 分页查询列过滤器
  * @author gyc
- * @date Aug 19, 2018
+ * 
  */
 public class ColumnFilter {
 
