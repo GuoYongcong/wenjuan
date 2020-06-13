@@ -22,4 +22,12 @@ public interface FuncQuestionService extends CurdService<FuncQuestion> {
     * @return
     */
     List<FuncQuestion> findAllByQuestionnaireId(Long questionnaireId);
+
+     /**
+     * 批量保存操作
+     * @param records
+     * @return
+     */
+    int save(List<FuncQuestion> records);
+
 }

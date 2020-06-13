@@ -7,6 +7,19 @@
 	<result column="title" jdbcType="VARCHAR" property="title" />
 	<result column="user_id" jdbcType="BIGINT" property="userId" />
 	<result column="state" jdbcType="TINYINT" property="state" />
+  <collection property="questions" ofType="com.gyc.wenjuan.admin.model.FuncQuestion"  column="questionnaire_id">
+    <id column="que_id" jdbcType="BIGINT" property="id" />
+    <result column="questionnaire_id" jdbcType="BIGINT" property="questionnaireId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="que_title" jdbcType="VARCHAR" property="title" />
+    <result column="no" jdbcType="SMALLINT" property="no" />
+    <collection property="options" ofType="com.gyc.wenjuan.admin.model.FuncOption"  column="question_id">
+      <id column="opt_id" jdbcType="BIGINT" property="id" />
+      <result column="question_id" jdbcType="BIGINT" property="questionId" />
+      <result column="opt_no" jdbcType="TINYINT" property="no" />
+      <result column="content" jdbcType="VARCHAR" property="content" />          
+    </collection>          
+  </collection> 
   </resultMap>
   
   <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.gyc.wenjuan.admin.model.FuncQuestionnaire">
@@ -66,17 +79,20 @@
   </update>
 
   <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select * from func_questionnaire
-    where id = #{id,jdbcType=BIGINT}
+    select
+    a.*, b.id as que_id, b.questionnaire_id, b.type, b.title as que_title, b.no, c.id as opt_id, c.question_id, c.no as opt_no, c.content
+    form (select * from func_questionnaire where id = #{id,jdbcType=BIGINT}) as a
+    left join func_question as b on c.id=b.questionnaire_id
+    left join func_option as c on b.id=c.question_id
   </select>
   
   <select id="findPage" resultMap="BaseResultMap">
-    select * from func_questionnaire
+    select * from func_questionnaire 
   </select>
 
   <select id="findPageByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <bind name="pattern" value="'%' + _parameter.userId + '%'" />
-    select * from func_questionnaire
+    select * from func_questionnaire 
     where user_id like #{pattern}
   </select>
 </mapper>

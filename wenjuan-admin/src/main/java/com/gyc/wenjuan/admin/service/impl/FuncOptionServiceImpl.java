@@ -37,6 +37,14 @@ public class FuncOptionServiceImpl implements FuncOptionService {
 	}
 
 	@Override
+	public int save(List<FuncOption> records) {
+		for(FuncOption record:records) {
+			save(record);
+		}
+		return 1;
+	}
+	
+	@Override
 	public int delete(FuncOption record) {
 		return funcOptionMapper.delete(record.getId());
 	}

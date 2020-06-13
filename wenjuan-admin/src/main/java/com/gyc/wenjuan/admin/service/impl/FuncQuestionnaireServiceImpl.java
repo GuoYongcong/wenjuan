@@ -57,12 +57,18 @@ public class FuncQuestionnaireServiceImpl implements FuncQuestionnaireService {
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
 		String userId = getColumnFilterValue(pageRequest, "userId");
+		PageResult result = null;
 		if(userId != null) {
 			Long uid = Long.valueOf(userId);
-			return MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper, "findPageByUserId", uid);
+			result = MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper, "findPageByUserId", uid);
 		}else{
-			return MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper);
+			result = MybatisPageHelper.findPage(pageRequest, funcQuestionnaireMapper);
 		}
+		// //查询问卷的题目和选项
+		// for (FuncQuestionnaire q : (List<FuncQuestionnaire>)result.getContent()) {
+		//  	q = this.findById(q.getId());
+		// }
+		return result;
 	}
 
 	/**

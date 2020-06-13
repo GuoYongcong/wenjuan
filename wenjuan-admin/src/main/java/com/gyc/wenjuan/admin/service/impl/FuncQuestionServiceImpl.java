@@ -37,6 +37,14 @@ public class FuncQuestionServiceImpl implements FuncQuestionService {
 	}
 
 	@Override
+	public int save(List<FuncQuestion> records) {
+		for(FuncQuestion record:records) {
+			save(record);
+		}
+		return 1;
+	}
+
+	@Override
 	public int delete(FuncQuestion record) {
 		return funcQuestionMapper.delete(record.getId());
 	}

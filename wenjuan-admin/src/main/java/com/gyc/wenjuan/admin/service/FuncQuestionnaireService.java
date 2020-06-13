@@ -1,5 +1,7 @@
 package com.gyc.wenjuan.admin.service;
 
+import java.util.List;
+
 import com.gyc.wenjuan.admin.model.FuncQuestionnaire;
 import com.gyc.wenjuan.core.service.CurdService;
 
@@ -13,4 +15,5 @@ import com.gyc.wenjuan.core.service.CurdService;
  */
 public interface FuncQuestionnaireService extends CurdService<FuncQuestionnaire> {
 
+   
 }

@@ -1,5 +1,7 @@
 package com.gyc.wenjuan.admin.model;
 
+import java.util.List;
+
 /**
  * ---------------------------
  * 题目 (FuncQuestion)         
@@ -21,6 +23,8 @@ public class FuncQuestion {
 	private String title;
 	/** 题目序号 */
 	private Integer no;
+	//选项
+	private List<FuncOption> options;
 
 	public Long getId() {
 		return id;
@@ -60,6 +64,14 @@ public class FuncQuestion {
 
 	public void setNo(Integer no) {
 		this.no = no;
+	}
+
+	public List<FuncOption> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<FuncOption> options) {
+		this.options = options;
 	}
 
 }

@@ -21,4 +21,10 @@ public interface FuncOptionService extends CurdService<FuncOption> {
     */
     List<FuncOption> findAllByquestionId(Long questionId);
 
+     /**
+     * 批量保存操作
+     * @param records
+     * @return
+     */
+    int save(List<FuncOption> records);
 }

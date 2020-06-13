@@ -1,5 +1,7 @@
 package com.gyc.wenjuan.admin.model;
 
+import java.util.List;
+
 /**
  * ---------------------------
  * 问卷 (FuncQuestionnaire)         
@@ -19,6 +21,8 @@ public class FuncQuestionnaire {
 	private Long userId;
 	/** 问卷状态：0表示未发布；1表示已发布 */
 	private Integer state;
+	//题目
+	private List<FuncQuestion> questions;
 
 	public Long getId() {
 		return id;
@@ -51,5 +55,14 @@ public class FuncQuestionnaire {
 	public void setState(Integer state) {
 		this.state = state;
 	}
+
+	public List<FuncQuestion> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<FuncQuestion> questions) {
+		this.questions = questions;
+	}
+
 
 }

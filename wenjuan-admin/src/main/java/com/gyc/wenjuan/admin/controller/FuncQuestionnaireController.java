@@ -14,7 +14,13 @@ import com.gyc.wenjuan.core.http.HttpResult;
 import com.gyc.wenjuan.core.page.PageRequest;
 
 import com.gyc.wenjuan.admin.model.FuncQuestionnaire;
+import com.gyc.wenjuan.admin.model.FuncQuestion;
+import com.gyc.wenjuan.admin.model.FuncOption;
+
 import com.gyc.wenjuan.admin.service.FuncQuestionnaireService;
+import com.gyc.wenjuan.admin.service.FuncQuestionService;
+import com.gyc.wenjuan.admin.service.FuncOptionService;
+
 
 /**
  * ---------------------------
@@ -31,18 +37,38 @@ public class FuncQuestionnaireController {
 
 	@Autowired
 	private FuncQuestionnaireService funcQuestionnaireService;
+    @Autowired
+    private FuncQuestionService funcQuestionService;
+   @Autowired
+    private FuncOptionService funcOptionService;
 
 	/**
 	 * 保存问卷
-	 * @param record
+	 * @param records
 	 * @return
 	 */	
 	@PostMapping(value="/save")
 	public HttpResult save(@RequestBody FuncQuestionnaire record) {
-        HttpResult result = HttpResult.ok(funcQuestionnaireService.save(record));
-        //获取保存之后问卷的编号
-        result.setData(record.getId());
-		return result;
+        //保存问卷信息
+        funcQuestionnaireService.save(record);
+        //获取问卷的编号
+        Long questionnaireId = record.getId();
+        //保存题目信息
+        List<FuncQuestion> questions = record.getQuestions();
+        for(FuncQuestion question : questions ){
+            question.setQuestionnaireId(questionnaireId);
+        }
+        funcQuestionService.save(questions);
+        //获取题目的编号,并保存选项信息
+        for(FuncQuestion question : questions ){
+            List<FuncOption> options = question.getOptions();
+            Long questionId = question.getId();
+            for (FuncOption option: options) {
+                option.setQuestionId(questionId);
+            }
+            funcOptionService.save(options);
+        }
+		return HttpResult.ok(1);
 	}
 
     /**
