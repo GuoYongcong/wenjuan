@@ -90,7 +90,7 @@ export default {
         {prop:"id", label:"编号", minWidth:100},
         {prop:"title", label:"问卷标题", minWidth:100},
         {prop:"userId", label:"用户编号", minWidth:100},
-        {prop:"state", label:"问卷状态：0表示未发布；1表示已发布", minWidth:100},
+        {prop:"state", label:"问卷状态", minWidth:100},
       ],
       pageRequest: { pageNum: 1, pageSize: 8 },
       pageResult: {},
@@ -106,13 +106,7 @@ export default {
         state: 0,
         questions: []
       },
-      question: {
-        id: null,
-        title: '',
-        userId: null,
-        state: 0,
-        questions: []
-      }
+      userId: null,
     }
   },
   methods: {
@@ -121,7 +115,25 @@ export default {
       if(data !== null) {
         this.pageRequest = data.pageRequest
       }
-      this.pageRequest.columnFilters = {label: {name:'label', value:this.filters.label}}
+      if(this.userId === null)
+      {
+        //通过userName获得userId
+        let userName = sessionStorage.getItem('user')
+        let request = { pageNum: 1, pageSize: 10 }
+        request.columnFilters = {name: {name:'name', value: userName}}
+        this.$api.user.findPage(request).then((res) => {
+          if(res.code === 200) {
+            this.userId = res.data.content[0].id
+            this.findPageByUserId(data)
+          } else
+            this.$message({message: '获取用户id失败, ' + res.msg, type: 'error'})
+        })
+      }else{
+        this.findPageByUserId(data)
+      }
+    },
+    findPageByUserId: function(data){
+      this.pageRequest.columnFilters = {userId: {name:'userId', value:this.userId}}
       this.$api.questionnaire.findPage(this.pageRequest).then((res) => {
         this.pageResult = res.data
       }).then(data!=null?data.callback:'')
@@ -201,17 +213,24 @@ export default {
         if (valid) {
           this.$confirm('确认提交吗？', '提示', {}).then(() => {
             this.editLoading = true
-            //通过userName获得userId
-            let userName = sessionStorage.getItem('user')
-            let request = { pageNum: 1, pageSize: 10 }
-            request.columnFilters = {name: {name:'name', value: userName}}
-            this.$api.user.findPage(request).then((res) => {
-              if(res.code === 200) {
-                this.dataForm.userId = res.data.content[0].id
-                this.saveQuestionnaire()
-              } else
-                this.$message({message: '操作失败, ' + res.msg, type: 'error'})
-            })
+            if(this.userId === null)
+            {
+              //通过userName获得userId
+              let userName = sessionStorage.getItem('user')
+              let request = { pageNum: 1, pageSize: 10 }
+              request.columnFilters = {name: {name:'name', value: userName}}
+              this.$api.user.findPage(request).then((res) => {
+                if(res.code === 200) {
+                  this.userId = res.data.content[0].id
+                  this.dataForm.userId = this.userId
+                  this.saveQuestionnaire()
+                } else
+                  this.$message({message: '获取用户id失败, ' + res.msg, type: 'error'})
+              })
+            }else{
+              this.dataForm.userId = this.userId
+              this.saveQuestionnaire()
+            }
           })
         }else
           this.$message({message: '操作失败, 请输入完整信息！', type: 'error'})
@@ -225,49 +244,55 @@ export default {
     //保存问卷
     saveQuestionnaire: function(){
       let params = Object.assign({}, this.dataForm)
-      this.$delete(params, 'questions')
+      console.log("params")
+      console.log(params)
       this.$api.questionnaire.save(params).then((res) => {
         if(res.code === 200) {
-          for (let i = 0; i < this.dataForm.questions.length; i++) {
-            this.dataForm.questions[i].questionnaireId = res.data
-            this.saveQuestion(i)
-          }
+          // this.dataForm.questions[i].questionnaireId = res.data
+          // this.saveQuestion(i)
+          this.$message({ message: '操作成功', type: 'success' })
+          this.$refs['dataForm'].resetFields()
+          console.log(this.dataForm)
+          this.editDialogVisible = false
         } else {
           this.$message({message: '操作失败, ' + res.msg, type: 'error'})
         }
-      })
-    },
-    //保存题目
-    saveQuestion: function(index){
-      let params = Object.assign({}, this.dataForm.questions[index])
-      this.$delete(params, 'options')
-      this.$api.question.save(params).then((res) => {
-        if(res.code === 200) {
-          for (let i = 0; i < this.dataForm.questions[index].options.length; i++) {
-            this.dataForm.questions[index].options[i].questionId = res.data
-            this.saveQuestion(index, i)
-          }
-        } else {
-          this.$message({message: '操作失败, ' + res.msg, type: 'error'})
-        }
+        this.editLoading = false
+        this.findPage(null)
       })
 
     },
-     //保存选项
-    saveOption: function(queIndex, optIndex){
-      let params = Object.assign({}, this.dataForm.questions[queIndex].options[optIndex])
-      this.$api.option.save(params).then((res) => {
-        if(res.code == 200) {
-          this.$message({ message: '操作成功', type: 'success' })
-        } else {
-          this.$message({message: '操作失败, ' + res.msg, type: 'error'})
-        }
-      })
-      this.editLoading = false
-      this.$refs['dataForm'].resetFields()
-      this.editDialogVisible = false
-      this.findPage(null)
-    },
+    // //保存题目
+    // saveQuestion: function(index){
+    //   let params = Object.assign({}, this.dataForm.questions[index])
+    //   this.$delete(params, 'options')
+    //   this.$api.question.save(params).then((res) => {
+    //     if(res.code === 200) {
+    //       for (let i = 0; i < this.dataForm.questions[index].options.length; i++) {
+    //         this.dataForm.questions[index].options[i].questionId = res.data
+    //         this.saveQuestion(index, i)
+    //       }
+    //     } else {
+    //       this.$message({message: '操作失败, ' + res.msg, type: 'error'})
+    //     }
+    //   })
+
+    // },
+    //  //保存选项
+    // saveOption: function(queIndex, optIndex){
+    //   let params = Object.assign({}, this.dataForm.questions[queIndex].options[optIndex])
+    //   this.$api.option.save(params).then((res) => {
+    //     if(res.code == 200) {
+    //       this.$message({ message: '操作成功', type: 'success' })
+    //     } else {
+    //       this.$message({message: '操作失败, ' + res.msg, type: 'error'})
+    //     }
+    //   })
+    //   this.editLoading = false
+    //   this.$refs['dataForm'].resetFields()
+    //   this.editDialogVisible = false
+    //   this.findPage(null)
+    // },
     // 时间格式化
     dateFormat: function (row, column, cellValue, index){
         return format(row[column.property])
